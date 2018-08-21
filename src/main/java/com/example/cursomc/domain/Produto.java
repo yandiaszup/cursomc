@@ -1,6 +1,8 @@
 package com.example.cursomc.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ public class Produto implements Serializable {
     private String nome;
     private double preco;
 
+    @JsonBackReference
     @ManyToMany  // relacionamento muitos para muitos
     @JoinTable(name = "PRODUTO_CATEGORIA",
         joinColumns = @JoinColumn(name = "produto_id"),
@@ -24,6 +27,7 @@ public class Produto implements Serializable {
     )
     private List<Categoria> categorias = new ArrayList<>(); // Um produto pode ter varias categorias
 
+    public Produto(){}
     public Produto(Integer id, String nome, double preco) {
         this.id = id;
         this.nome = nome;
