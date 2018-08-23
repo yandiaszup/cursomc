@@ -18,7 +18,6 @@ public class Categoria implements Serializable {
     private Integer id;
     private String nome;
 
-    @JsonBackReference
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos = new ArrayList<>(); // Uma categoria de varios produtos
 

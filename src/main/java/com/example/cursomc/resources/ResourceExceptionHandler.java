@@ -1,5 +1,6 @@
 package com.example.cursomc.resources;
 
+import com.example.cursomc.servicesexceptions.DataIntegrityException;
 import com.example.cursomc.servicesexceptions.ObjectNotFoundException;
 import org.springframework.boot.devtools.remote.server.HttpStatusHandler;
 import org.springframework.http.HttpStatus;
@@ -17,5 +18,12 @@ public class ResourceExceptionHandler {
 
         StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+    }
+
+    @ExceptionHandler(DataIntegrityException.class)
+    public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e, HttpServletRequest request){
+
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 }
