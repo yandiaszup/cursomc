@@ -37,10 +37,11 @@ public class ClienteServices {
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
     }
 
-    
+
     public Cliente insert(Cliente obj) {
         obj.setId(null);
         obj =  repo.save(obj);
+        enderecoRepository.saveAll(obj.getEndereco());
         return obj;
     }
 
