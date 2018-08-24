@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity // criacao do tipo entidade
-public class Categoria implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Categoria{
 
     @Id // chave primaria e id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
