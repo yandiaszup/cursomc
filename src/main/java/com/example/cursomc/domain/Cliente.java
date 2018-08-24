@@ -26,7 +26,7 @@ public class Cliente implements Serializable {
     private Set<String> telefones = new HashSet<>();
 
       
-    @OneToMany(mappedBy="cliente")
+    @OneToMany(mappedBy="cliente", cascade = CascadeType.ALL) // se pagar cliente apaga endereco
     private List<Endereco> endereco = new ArrayList<>();
 
     @JsonIgnore
