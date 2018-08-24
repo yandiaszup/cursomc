@@ -1,6 +1,6 @@
 package com.example.cursomc.resources;
 
-import com.example.cursomc.DTO.ClienteDTO;
+import com.example.cursomc.DTO.*;
 import com.example.cursomc.domain.Cliente;
 import com.example.cursomc.domain.Cliente;
 import com.example.cursomc.services.ClienteServices;
@@ -16,6 +16,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @RestController
 @RequestMapping(value="/clientes")
 public class ClienteResource {
@@ -30,7 +31,7 @@ public class ClienteResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> insert(@Valid @RequestBody ClienteDTO objDTO){
+    public ResponseEntity<?> insert(@Valid @RequestBody ClientNewDto objDTO){
         Cliente obj = service.fromDTO(objDTO);
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
