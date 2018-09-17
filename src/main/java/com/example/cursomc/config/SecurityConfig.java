@@ -23,13 +23,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private Environment env;
 
-    private static final String [] PUBLIC_MATCHERS = {
+    private static final String [] PUBLIC_MATCHERS = { // Endpoints permitidos
             "/h2-console/**"
     };
 
-    private static final String [] PUBLIC_MATCHERS_GET = {
+    private static final String [] PUBLIC_MATCHERS_GET = { // ENDPOINTS do metodo GET permitidos
             "/produtos/**",
-            "/categorias/**"
+            "/categorias/**",
+            "/clientes/**"
     };
 
     @Override

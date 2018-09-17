@@ -1,5 +1,6 @@
 package com.example.cursomc.domain;
 
+import com.example.cursomc.enums.Perfil;
 import com.example.cursomc.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Cliente implements Serializable {
@@ -28,6 +30,10 @@ public class Cliente implements Serializable {
     @CollectionTable(name="TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name="PERFIS")
+    private Set<Integer> perfis = new HashSet<>();
+
       
     @OneToMany(mappedBy="cliente", cascade = CascadeType.ALL) // se apagar cliente apaga endereco
     private List<Endereco> endereco = new ArrayList<>();
@@ -37,7 +43,6 @@ public class Cliente implements Serializable {
     private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente(){
-
     }
 
     public Cliente(Integer id, String nome, String email, String cpfOuCnpj, Integer tipo, String senha) {
@@ -47,6 +52,7 @@ public class Cliente implements Serializable {
         this.cpfOuCnpj = cpfOuCnpj;
         this.tipo = tipo;
         this.senha = senha;
+        addPerfil(Perfil.CLIENTE);
     }
 
     public Integer getId() {
@@ -121,6 +127,13 @@ public class Cliente implements Serializable {
         this.senha = senha;
     }
 
+    public Set<Perfil> getPerfis(){
+        return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public void addPerfil (Perfil perfil){
+        perfis.add(perfil.getCodigo());
+    }
 
     @Override
     public boolean equals(Object o) {

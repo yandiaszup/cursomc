@@ -2,6 +2,7 @@ package com.example.cursomc.services;
 
 import com.example.cursomc.domain.*;
 import com.example.cursomc.enums.EstadoPagamento;
+import com.example.cursomc.enums.Perfil;
 import com.example.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -85,17 +86,22 @@ public class DBService {
         est2.getCidades().addAll(Arrays.asList(c2,c3));
 
         Cliente cli1 = new Cliente(null,"Maria","maria@hotmail","23123123",1,bCryptPasswordEncoder.encode("123"));
+        Cliente cli2 = new Cliente(null,"Ana","ana@hotmail","123342",1,bCryptPasswordEncoder.encode("123"));
+        cli2.addPerfil(Perfil.ADMIN);
+
         Endereco e1 = new Endereco(null,"Rua Flores","300","Apto 203","Jardim","231233",cli1,c1);
         Endereco e2 = new Endereco(null,"AV Matos","78","Apto 401","Sta monica","38408",cli1,c2);
 
         cli1.getTelefones().addAll(Arrays.asList("123123","1123132"));
         cli1.getEndereco().addAll(Arrays.asList(e1,e2));
+        cli2.getTelefones().addAll(Arrays.asList("1212313"));
+        cli2.getEndereco().addAll(Arrays.asList(e1));
 
         categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
         produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
         estadoRepository.saveAll(Arrays.asList(est1,est2));
         cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
-        clienteRepository.saveAll(Arrays.asList(cli1));
+        clienteRepository.saveAll(Arrays.asList(cli1, cli2));
         enderecoRepository.saveAll(Arrays.asList(e1,e2));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
