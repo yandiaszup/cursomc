@@ -3,12 +3,14 @@ package com.example.cursomc.domain;
 import com.example.cursomc.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 @Entity
 @Inheritance(strategy =InheritanceType.JOINED) // Mapeamento de herancas -------- Definicao de Estrategia //
 // Uma tabela para todas as tabelas da generalizacao ou uma tabela para cara cada entidade

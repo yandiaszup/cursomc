@@ -1,12 +1,15 @@
 package com.example.cursomc.domain;
 
 import com.example.cursomc.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
 
+@JsonTypeName("pagamentoBoleto")
 @Entity
 public class PagamentoBoleto extends Pagamento {
     private static final long serialVersionUID = 1L;
