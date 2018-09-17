@@ -18,6 +18,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,8 @@ import java.util.Optional;
 @Service
 public class ClienteServices {
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private ClienteRepository repo;
     @Autowired
@@ -77,11 +80,11 @@ public class ClienteServices {
     }
 
     public Cliente fromDTO(ClienteDTO objDto){
-        return new Cliente(objDto.getId(),objDto.getNome(),objDto.getEmail(),null,null);
+        return new Cliente(objDto.getId(),objDto.getNome(),objDto.getEmail(),null,null, null);
     }
 
     public Cliente fromDTO(ClientNewDto objDto){
-        Cliente cli = new Cliente(null,objDto.getNome(),objDto.getEmail(),objDto.getCpfOuCnpj(),objDto.getTipo());
+        Cliente cli = new Cliente(null,objDto.getNome(),objDto.getEmail(),objDto.getCpfOuCnpj(),objDto.getTipo(), bCryptPasswordEncoder.encode(objDto.getSenha()));
         Cidade cidade = new Cidade(objDto.getCidadeId(),null,null);
         Endereco end = new Endereco(null,objDto.getLogradouro(),objDto.getNumero(),objDto.getComplemento(),objDto.getBairro(),objDto.getCep(),cli,cidade);
         cli.getEndereco().add(end);

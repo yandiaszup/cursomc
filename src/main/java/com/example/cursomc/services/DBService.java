@@ -4,6 +4,7 @@ import com.example.cursomc.domain.*;
 import com.example.cursomc.enums.EstadoPagamento;
 import com.example.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -12,6 +13,8 @@ import java.util.Arrays;
 
 @Service
 public class DBService {
+    @Autowired
+    public BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     public CategoriaRepository categoriaRepository;
     @Autowired
@@ -81,7 +84,7 @@ public class DBService {
         est1.getCidades().addAll(Arrays.asList(c1));
         est2.getCidades().addAll(Arrays.asList(c2,c3));
 
-        Cliente cli1 = new Cliente(null,"Maria","maria@hotmail","23123123",1);
+        Cliente cli1 = new Cliente(null,"Maria","maria@hotmail","23123123",1,bCryptPasswordEncoder.encode("123"));
         Endereco e1 = new Endereco(null,"Rua Flores","300","Apto 203","Jardim","231233",cli1,c1);
         Endereco e2 = new Endereco(null,"AV Matos","78","Apto 401","Sta monica","38408",cli1,c2);
 
